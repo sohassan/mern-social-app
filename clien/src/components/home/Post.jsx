@@ -1,4 +1,4 @@
-import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, MoreVert, Share, ThumbUp } from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -10,43 +10,78 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-const Post = () => {
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {format} from "timeago.js";
+
+const Post = ({ post }) => {
+  const [user, setUser] = useState({});
+  const [like, setLike] = useState(post.likes.length);
+  const [isLiked, setIsLiked] = useState(false);
+  
+const likeHandler = () => {
+      setLike(isLiked ? like - 1 : like + 1);
+      setIsLiked(!isLiked);
+    };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`/users/${post.userId}`);
+      setUser(res.data);
+      console.log(res);
+    };
+    fetchUser();
+  }, [post.userId]);
+
   return (
     <Card sx={{ margin: 5 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-            R
-          </Avatar>
+          <Avatar
+            // src={"/assets/person/noAvatar.jpg"}
+            src={user.profilePicture}
+            aria-label="recipe"
+          ></Avatar>
         }
         action={
           <IconButton aria-label="settings">
             <MoreVert />
           </IconButton>
         }
-        title="John Doe"
-        subheader="September 14, 2022"
+        title={user.username}
+        subheader={format(post.createdAt)}
       />
       <CardMedia
         component="img"
-        height="20%"
-        image="https://images.pexels.com/photos/4534200/pexels-photo-4534200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      
+        image={post.img}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
+          {/* This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          mussels, if you like. */}
+          {post.desc}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <Checkbox
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite sx={{ color: "red" }} />}
+            icon={<ThumbUp />}
+            checkedIcon={<ThumbUp sx={{ color: "blue" }} />}
+            onClick={likeHandler}
           />
         </IconButton>
+        <Typography
+          variant="caption"
+          display="block"
+          color="text.secondary"
+          paddingTop="6px"
+          marginLeft="-12px"
+        >
+          {like} people like it
+        </Typography>
         <IconButton aria-label="share">
           <Share />
         </IconButton>

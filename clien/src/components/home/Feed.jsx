@@ -1,9 +1,19 @@
 import { Box, Stack, Skeleton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Post from "./Post";
+import axios from "axios";
 
 const Feed = () => {
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await axios.get("/posts/timeline/6332b5dd8187036155d3bf54");
+      setPosts(res.data);
+    };
+    fetchPosts();
+  }, []);
 
   setTimeout(() => {
     setLoading(false);
@@ -20,12 +30,9 @@ const Feed = () => {
         </Stack>
       ) : (
         <>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {posts.map((p) => (
+            <Post key={p._id} post={p} />
+          ))}
         </>
       )}
     </Box>

@@ -4,6 +4,9 @@ let AppContext = createContext({});
 
 const initialState = {
   mode: "light",
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  isFetching: false,
+  error: false,
 };
 
 let reducer = (state, action) => {
@@ -11,6 +14,28 @@ let reducer = (state, action) => {
     case "setmode": {
       return { ...state, mode: action.payload };
     }
+    case "LOGIN_START":
+      return {
+        user: null,
+        isFetching: true,
+        error: false,
+      };
+    case "LOGIN_SUCCESS": {
+      const user = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      return {
+        ...state,
+        isFetching: false,
+        error: false,
+        user: action.payload.user,
+      };
+    }
+    case "LOGIN_FAILURE":
+      return {
+        user: null,
+        isFetching: false,
+        error: true,
+      };
 
     default:
       break;

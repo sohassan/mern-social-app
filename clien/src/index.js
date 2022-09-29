@@ -5,8 +5,9 @@ import { AppContextProvider } from "./State";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AppContextProvider>
+  <React.StrictMode>
+    <AppContextProvider>
       <App />
-   </AppContextProvider>
-     
+    </AppContextProvider>
+  </React.StrictMode>
 );

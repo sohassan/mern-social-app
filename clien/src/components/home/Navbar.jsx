@@ -12,10 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 });
 
 const Search = styled("div")(({ theme }) => ({
@@ -47,9 +48,18 @@ const Navbar = () => {
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
-          LAMA DEV
-        </Typography>
+      <Link
+            to="/profile/:username"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >  
+          <Typography
+          variant="h6"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
+          
+            LAMA DEV
+         
+        </Typography> </Link>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
           <InputBase placeholder="search..." />
