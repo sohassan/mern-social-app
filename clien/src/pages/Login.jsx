@@ -196,113 +196,49 @@
 //   );
 // }
 
-// import axios from "axios";
-// import {  useContext, useRef } from "react";
-// import "./login.css";
-// import { AppContext } from "../State";
 
-// export default function Login() {
-//   const email = useRef();
-//   const password = useRef();
-//  const { state, dispatch } = useContext(AppContext);
 
-//  const loginCall = async (userCredential) => {
-//   const res =  await axios.post("/auth/login", {
-//      email: email.current.value,
-//      password: password.current.value,
-//    });
-//    console.log(res.data);
-//  };
-//   const handleClick =(e) => {
-//     e.preventDefault();
-//   const user = loginCall({  email: email.current.value,
-//     password: password.current.value})
 
-//    dispatch({
-//      type: "LOGIN_SUCCESS",
-//      payload: { user},
-//    });
-//        console.log(state.user);
-//   };
-
-// code front pris du web
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useRef } from "react";
 import { useContext } from "react";
-import axios from "axios";
 import { AppContext } from "../State";
 import { useState } from "react";
+import { loginCall } from "./apiCalls";
+import { useEffect } from "react";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
 
 export default function Login() {
-  // const email = useRef();
-  // const password = useRef();
   const [email, setemail] = useState("");
-   const [password, setpassword] = useState("");
+  const [password, setpassword] = useState("");
   const { state, dispatch } = useContext(AppContext);
 
-  const loginCall = async (userCredential) => {
-    try {
-      const res = await axios.post("/auth/login", {
-        email: userCredential.email,
-        password: userCredential.password,
-      });
-      const user = res.data;
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: { user },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleSubmit = (e) => {
+
+  const handleSubmit =async (e) => {
     e.preventDefault();
-const user = {
-  email: email,
-  password: password,
-};
-console.log(user)
-    loginCall(user);
+    const user = {
+      email: email,
+      password: password,
+    };
+    loginCall(user,dispatch);
     setemail("");
     setpassword("");
-    console.log(state.user);
   };
 
+useEffect(() => {
+    console.log(state.user);
+}, [state.user]);
+
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -353,10 +289,6 @@ console.log(user)
                 setpassword(e.target.value);
               }}
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -379,8 +311,6 @@ console.log(user)
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }

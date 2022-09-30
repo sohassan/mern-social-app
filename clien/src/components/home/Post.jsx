@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {format} from "timeago.js";
+// import {format} from "timeago.js";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState({});
@@ -49,7 +49,7 @@ const likeHandler = () => {
           </IconButton>
         }
         title={user.username}
-        subheader={format(post.createdAt)}
+        // subheader={format(post.createdAt)}
       />
       <CardMedia
         component="img"
