@@ -11,16 +11,22 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
-import {format} from "timeago.js";
+// import {format} from "timeago.js";
+import { AppContext } from "../../State";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState({});
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const { state } = useContext(AppContext);
   
 const likeHandler = () => {
+  try {
+    axios.put("/posts//like/" + post._id, { userId: state.user._id });
+  } catch (err) {}
       setLike(isLiked ? like - 1 : like + 1);
       setIsLiked(!isLiked);
     };
@@ -50,7 +56,7 @@ const likeHandler = () => {
           </IconButton>
         }
         title={user.username}
-        subheader={format(post.createdAt)}
+        // subheader={format(post.createdAt)}
       />
       <CardMedia
         component="img"

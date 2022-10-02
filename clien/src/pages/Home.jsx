@@ -11,7 +11,12 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="space-between"
+        bgcolor={"background.default"}
+      >
         <Sidebar />
         <Feed />
         <Rightbar />

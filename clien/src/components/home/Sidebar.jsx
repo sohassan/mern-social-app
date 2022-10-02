@@ -30,8 +30,13 @@ const Sidebar = () => {
     });
   };
   return (
-    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-      <Box position="fixed">
+    <Box
+      flex={2}
+      p={2}
+      sx={{ display: { xs: "none", sm: "block" } }}
+      bgcolor={"background.default"}
+    >
+      <Box position="fixed" bgcolor={"background.default"}>
         <List>
           <ListItem disablePadding>
             <ListItemButton component="a" href="#home">

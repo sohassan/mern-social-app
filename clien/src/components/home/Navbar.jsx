@@ -47,7 +47,7 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-const { state, dispatch } = useContext(AppContext);
+const { state } = useContext(AppContext);
 
   return (
     <AppBar position="sticky">
@@ -60,7 +60,7 @@ const { state, dispatch } = useContext(AppContext);
             variant="h6"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            LAMA DEV
+            L
           </Typography>{" "}
         </Link>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />

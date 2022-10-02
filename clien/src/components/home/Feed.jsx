@@ -8,11 +8,11 @@ import { AppContext } from "../../State";
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get(  `/posts/timeline/${state.user._id}`);
+      const res = await axios.get(`/posts/timeline/${state.user._id}`);
       setPosts(
         res.data.sort((p1, p2) => {
           return new Date(p2.createdAt) - new Date(p1.createdAt);
@@ -20,14 +20,19 @@ const Feed = () => {
       );
     };
     fetchPosts();
-  }, []);
+  }, [state.user._id]);
 
   setTimeout(() => {
     setLoading(false);
   }, [3000]);
 
   return (
-    <Box flex={3} p={{ xs: 0, md: 2 }}>
+    <Box
+      flex={3}
+      p={{ xs: 0, md: 2 }}
+      bgcolor={"background.default"}
+      minHeight={"100vh"}
+    >
       {loading ? (
         <Stack spacing={1}>
           <Skeleton variant="text" height={100} />
