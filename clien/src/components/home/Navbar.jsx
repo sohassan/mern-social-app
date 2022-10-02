@@ -12,7 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../State";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -45,21 +47,22 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+const { state, dispatch } = useContext(AppContext);
+
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-      <Link
-            to="/profile/:username"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >  
-          <Typography
-          variant="h6"
-          sx={{ display: { xs: "none", sm: "block" } }}
+        <Link
+          to={`/profile/${state.user.username}`}
+          style={{ textDecoration: "none", color: "inherit" }}
         >
-          
+          <Typography
+            variant="h6"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
             LAMA DEV
-         
-        </Typography> </Link>
+          </Typography>{" "}
+        </Link>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
           <InputBase placeholder="search..." />
@@ -73,14 +76,14 @@ const Navbar = () => {
           </Badge>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={state.user.profilePicture}
             onClick={(e) => setOpen(true)}
           />
         </Icons>
         <UserBox onClick={(e) => setOpen(true)}>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={state.user.profilePicture}
           />
           <Typography variant="span">John</Typography>
         </UserBox>

@@ -14,12 +14,14 @@ import { AppContext } from "../State";
 import { useState } from "react";
 import { loginCall } from "./apiCalls";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 
 export default function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const { state, dispatch } = useContext(AppContext);
+const history = useHistory();
 
 
   const handleSubmit = (e) => {
@@ -28,9 +30,10 @@ export default function Login() {
       email: email,
       password: password,
     };
-    loginCall(user,dispatch);
+    loginCall(user,dispatch,history, state);
     setemail("");
     setpassword("");
+    history.push(`/profile/${state.user.username}`);
   };
   return (
       <Container component="main" maxWidth="xs">

@@ -12,12 +12,13 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import {format} from "timeago.js";
+import {format} from "timeago.js";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState({});
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   
 const likeHandler = () => {
       setLike(isLiked ? like - 1 : like + 1);
@@ -34,7 +35,7 @@ const likeHandler = () => {
   }, [post.userId]);
 
   return (
-    <Card sx={{ margin: 5 }}>
+    <Card sx={{ margin: 5, maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar
@@ -49,13 +50,13 @@ const likeHandler = () => {
           </IconButton>
         }
         title={user.username}
-        // subheader={format(post.createdAt)}
+        subheader={format(post.createdAt)}
       />
       <CardMedia
         component="img"
-      
-        image={post.img}
-        alt="Paella dish"
+     
+        image={PF + post.img}
+        alt=""
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
