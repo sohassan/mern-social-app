@@ -53,7 +53,7 @@ const { state } = useContext(AppContext);
     <AppBar position="sticky">
       <StyledToolbar>
         <Link
-          to={`/profile/${state.user.username}`}
+          to={`/`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Typography

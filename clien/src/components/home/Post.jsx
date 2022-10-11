@@ -1,4 +1,10 @@
-import { Favorite, FavoriteBorder, MoreVert, Share, ThumbUp } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorder,
+  MoreVert,
+  Share,
+  ThumbUp,
+} from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -20,28 +26,30 @@ const Post = ({ post }) => {
   const [user, setUser] = useState({});
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
-   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const { state } = useContext(AppContext);
-  
-const likeHandler = () => {
-  try {
-    axios.put("/posts//like/" + post._id, { userId: state.user._id });
-  } catch (err) {}
-      setLike(isLiked ? like - 1 : like + 1);
-      setIsLiked(!isLiked);
-    };
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { state } = useContext(AppContext);
+
+  const likeHandler = () => {
+    try {
+      axios.put("/posts//like/" + post._id, { userId: state.user._id });
+    } catch (err) {}
+    setLike(isLiked ? like - 1 : like + 1);
+    setIsLiked(!isLiked);
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`/users/${post.userId}`);
       setUser(res.data);
-      console.log(res);
+      // console.log(res);
     };
     fetchUser();
   }, [post.userId]);
 
   return (
-    <Card sx={{ margin: 5, maxWidth: 345 }}>
+    <Card
+    // sx={{ margin: 5, maxWidth: 345 }}
+    >
       <CardHeader
         avatar={
           <Avatar
@@ -60,9 +68,10 @@ const likeHandler = () => {
       />
       <CardMedia
         component="img"
-     
         image={PF + post.img}
         alt=""
+        width="100%"
+        height="auto"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
@@ -73,11 +82,10 @@ const likeHandler = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={likeHandler}>
           <Checkbox
             icon={<ThumbUp />}
             checkedIcon={<ThumbUp sx={{ color: "blue" }} />}
-            onClick={likeHandler}
           />
         </IconButton>
         <Typography

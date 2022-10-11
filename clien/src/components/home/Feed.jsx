@@ -28,7 +28,7 @@ const Feed = () => {
 
   return (
     <Box
-      flex={3}
+      flex={8}
       p={{ xs: 0, md: 2 }}
       bgcolor={"background.default"}
       minHeight={"100vh"}
