@@ -1,8 +1,8 @@
-import { Avatar, Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Avatar, Container, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import Add from "../components/home/Add";
 import Feed from "../components/home/Feed";
 import Navbar from "../components/home/Navbar";
@@ -26,12 +26,13 @@ export default function Profile() {
   return (
     <>
       <Navbar />
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="space-between"
-        bgcolor={"background.default"}
-        flex={10}
+       <Container
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          minWidth: {xs: 1 ,lg :0.7 } ,
+        }}
       >
         <Sidebar />
         <Stack
@@ -40,15 +41,6 @@ export default function Profile() {
           display="flex"
           justify-content="center"
         >
-          {/* <Container flex={3} p={{ xs: 0, md: 2 }}>
-          <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          > */}
           <Paper
             width={"100%"}
             height={300}
@@ -65,21 +57,11 @@ export default function Profile() {
             src={
               "https://img.freepik.com/photos-gratuite/route-etroite-dans-champ-herbeux-vert-entoure-arbres-verts-soleil-eclatant-arriere-plan_181624-9968.jpg?w=2000"
             }
-            // sx={{
-            //   position: "relative",
-            //   backgroundColor: "grey.800",
-            //   color: "#fff",
-            //   mb: 4,
-            //   backgroundSize: "cover",
-            //   backgroundRepeat: "no-repeat",
-            //   backgroundPosition: "center",
-            //   backgroundImage: `https://img.freepik.com/photos-gratuite/route-etroite-dans-champ-herbeux-vert-entoure-arbres-verts-soleil-eclatant-arriere-plan_181624-9968.jpg?w=2000`,
-            // }}
+           
           >
-            {/* Increase the priority of the hero background image */}
             {
               <img
-                // style={{ width: "200px", height: "auto" }}
+              component={"img"}
                 width={"100%"}
                 height={300}
                 src={
@@ -102,12 +84,10 @@ export default function Profile() {
               }}
             />
           </Paper>
-          {/* </Box>
-        </Container> */}
           <Feed />
         </Stack>
         {userprops && <Rightbar users={userprops} />}
-      </Stack>
+      </Container>
       <Add />
     </>
   );

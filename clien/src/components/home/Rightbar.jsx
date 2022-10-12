@@ -1,8 +1,8 @@
 import { Add, Remove } from "@mui/icons-material";
 import {
   Avatar,
-  AvatarGroup,
   Box,
+  Button,
   Divider,
   ImageList,
   ImageListItem,
@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../State";
 
 const Rightbar = ({ users }) => {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+ // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { state, dispatch } = useContext(AppContext);
   const [followed, setFollowed] = useState(
@@ -64,13 +64,13 @@ const Rightbar = ({ users }) => {
   const HomeRightbar = () => {
     return (
       <Box
-        flex={1}
+        
         p={2}
         sx={{ display: { xs: "none", sm: "block" } }}
         bgcolor={"background.default"}
-        width={"100%"}
+       
       >
-        <Box position="fixed" width={300} bgcolor={"background.default"}>
+        <Box width={300} bgcolor={"background.default"}>
           <Typography variant="h6" fontWeight={100}>
             Friends
           </Typography>
@@ -192,7 +192,7 @@ const Rightbar = ({ users }) => {
   const ProfileRightbar = () => {
     return (
       <Box
-        flex={1}
+        
         p={2}
         sx={{ display: { xs: "none", sm: "block" } }}
         bgcolor={"background.default"}
@@ -200,10 +200,10 @@ const Rightbar = ({ users }) => {
       >
         <Box position="fixed" width={300} bgcolor={"background.default"}>
           {users.username !== state.user.username && (
-            <button onClick={handleClick}>
+            <Button onClick={handleClick}>
               {followed ? "Unfollow" : "Follow"}
               {followed ? <Remove /> : <Add />}
-            </button>
+            </Button>
           )}
           <Typography variant="h6" fontWeight={100}>
             Online Friends
@@ -329,7 +329,7 @@ const Rightbar = ({ users }) => {
     );
   };
 
-  return <>{users ? <ProfileRightbar /> : <HomeRightbar />};</>;
+  return <>{users ? <ProfileRightbar /> : <HomeRightbar />}</>
 };
 
 export default Rightbar;

@@ -16,10 +16,10 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 export default function SignUp() {
+
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-
   const history = useHistory();
 
   const handleSubmit = async (e) => {

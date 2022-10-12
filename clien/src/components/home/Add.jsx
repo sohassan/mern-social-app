@@ -126,17 +126,6 @@ const Add = () => {
               setdesc(e.target.value);
             }}
           />
-          {/* {file && (
-            <div>
-              <img
-                src={URL.createObjectURL(file)}
-                alt=""
-              />
-              <Cancel
-                onClick={() => setFile(null)}
-              />
-            </div>
-          )} */}
           {file && (
             <Card
               sx={{

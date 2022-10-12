@@ -1,12 +1,7 @@
-import {
-  Favorite,
-  FavoriteBorder,
-  MoreVert,
-  Share,
-  ThumbUp,
-} from "@mui/icons-material";
+import { MoreVert, Share, ThumbUp } from "@mui/icons-material";
 import {
   Avatar,
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -19,7 +14,6 @@ import {
 import axios from "axios";
 import { useContext } from "react";
 import { useEffect, useState } from "react";
-// import {format} from "timeago.js";
 import { AppContext } from "../../State";
 
 const Post = ({ post }) => {
@@ -41,67 +35,58 @@ const Post = ({ post }) => {
     const fetchUser = async () => {
       const res = await axios.get(`/users/${post.userId}`);
       setUser(res.data);
-      // console.log(res);
     };
     fetchUser();
   }, [post.userId]);
 
   return (
-    <Card
-    // sx={{ margin: 5, maxWidth: 345 }}
-    >
-      <CardHeader
-        avatar={
-          <Avatar
-            // src={"/assets/person/noAvatar.jpg"}
-            src={user.profilePicture}
-            aria-label="recipe"
-          ></Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVert />
+    <Box sx={{ m: 2 }}>
+      <Card>
+        <CardHeader
+          avatar={
+            <Avatar src={user.profilePicture} aria-label="recipe"></Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVert />
+            </IconButton>
+          }
+          title={user.username}
+        />
+        <CardMedia
+          component="img"
+          image={PF + post.img}
+          alt=""
+          width="100%"
+          height="auto"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {post.desc}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites" onClick={likeHandler}>
+            <Checkbox
+              icon={<ThumbUp />}
+              checkedIcon={<ThumbUp sx={{ color: "blue" }} />}
+            />
           </IconButton>
-        }
-        title={user.username}
-        // subheader={format(post.createdAt)}
-      />
-      <CardMedia
-        component="img"
-        image={PF + post.img}
-        alt=""
-        width="100%"
-        height="auto"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {/* This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like. */}
-          {post.desc}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={likeHandler}>
-          <Checkbox
-            icon={<ThumbUp />}
-            checkedIcon={<ThumbUp sx={{ color: "blue" }} />}
-          />
-        </IconButton>
-        <Typography
-          variant="caption"
-          display="block"
-          color="text.secondary"
-          paddingTop="6px"
-          marginLeft="-12px"
-        >
-          {like} people like it
-        </Typography>
-        <IconButton aria-label="share">
-          <Share />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <Typography
+            variant="caption"
+            display="block"
+            color="text.secondary"
+            paddingTop="6px"
+            marginLeft="-12px"
+          >
+            {like} people like it
+          </Typography>
+          <IconButton aria-label="share">
+            <Share />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </Box>
   );
 };
 

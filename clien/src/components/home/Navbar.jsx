@@ -5,6 +5,7 @@ import {
   Badge,
   Box,
   InputBase,
+  Link,
   Menu,
   MenuItem,
   styled,
@@ -13,7 +14,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AppContext } from "../../State";
 
 const StyledToolbar = styled(Toolbar)({
@@ -53,7 +53,7 @@ const { state } = useContext(AppContext);
     <AppBar position="sticky">
       <StyledToolbar>
         <Link
-          to={`/`}
+          href="/"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Typography
@@ -61,7 +61,7 @@ const { state } = useContext(AppContext);
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             L
-          </Typography>{" "}
+          </Typography>
         </Link>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>

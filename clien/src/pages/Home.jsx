@@ -1,5 +1,4 @@
-
-import { Stack } from "@mui/system";
+import { Container } from "@mui/material";
 import React from "react";
 import Add from "../components/home/Add";
 import Feed from "../components/home/Feed";
@@ -11,16 +10,18 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="space-between"
-        bgcolor={"background.default"}
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          minWidth: {xs: 1 ,lg :0.7 } ,
+        }}
       >
         <Sidebar />
         <Feed />
         <Rightbar />
-      </Stack>
+      </Container>
       <Add />
     </>
   );

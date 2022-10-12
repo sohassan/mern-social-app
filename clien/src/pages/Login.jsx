@@ -12,19 +12,18 @@ import Container from "@mui/material/Container";
 import { useContext } from "react";
 import { AppContext } from "../State";
 import { useState } from "react";
-// import { loginCall } from "./apiCalls";
-// import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
+
 
 export default function Login() {
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
 
-
+// Fonction de Login 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
@@ -39,16 +38,13 @@ export default function Login() {
         payload: { user },
       });
     setemail("");
-    setpassword("");
-     
+    setpassword("");  
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err });
     }
      history.push(`/profile/${state.user.username}`);
      window.location.reload();
   };
-
-   
 
   return (
     <Container component="main" maxWidth="xs">

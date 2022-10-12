@@ -28,13 +28,20 @@ const Feed = () => {
 
   return (
     <Box
-      flex={8}
-      p={{ xs: 0, md: 2 }}
-      bgcolor={"background.default"}
-      minHeight={"100vh"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around", bgcolor:"background.default",
+      minHeight:"100vh",
+      maxWidth:"680px",
+      minWidth:"300px"
+      }}
+     
     >
       {loading ? (
-        <Stack spacing={1}>
+        <Stack   sx={{minWidth:280,
+        spacing:1 }}>
+          
           <Skeleton variant="text" height={100} />
           <Skeleton variant="text" height={20} />
           <Skeleton variant="text" height={20} />
