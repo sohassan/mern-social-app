@@ -11,6 +11,9 @@ import {
   Redirect,
 } from "react-router-dom";
 import Profile from "./pages/Profile.jsx";
+import Chat from "./pages/Chat.jsx";
+import Chat2 from "./pages/Chat2.jsx";
+import Error from "./pages/Error.jsx";
 
 function App() {
   const { state } = useContext(AppContext);
@@ -46,6 +49,15 @@ function App() {
             </Route>
             <Route exact path="/profile/:username">
               {state.user ? <Profile /> : <Login />}
+            </Route>
+            <Route exact path="/chat">
+              <Chat />
+            </Route>
+            <Route exact path="/chat2">
+              <Chat2 />
+            </Route>
+            <Route path="">
+              <Error />
             </Route>
           </Switch>
         </Router>

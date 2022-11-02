@@ -25,8 +25,17 @@ const Rightbar = ({ users }) => {
   const [friends, setFriends] = useState([]);
   const { state, dispatch } = useContext(AppContext);
   const [followed, setFollowed] = useState(
-    state.user.followings.includes(users?.id)
+   state.user.followings.includes(users?.id)
   );
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      // After 1 seconds set the show value to true
+      setShow(true);
+    }, 1000);
+  
+  }, []);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -41,7 +50,12 @@ const Rightbar = ({ users }) => {
     getFriends();
     
   }, [state.user]);
-
+useEffect(() => {
+  const resultat = friends.find((friend) => friend._id === users._id)
+    ? true
+    : false;
+  setFollowed(resultat);
+}, [users, friends]);
 
 
   const handleClick = async () => {
@@ -192,15 +206,14 @@ const Rightbar = ({ users }) => {
   const ProfileRightbar = () => {
     return (
       <Box
-        
         p={2}
         sx={{ display: { xs: "none", sm: "block" } }}
         bgcolor={"background.default"}
         width={"100%"}
       >
         <Box position="fixed" width={300} bgcolor={"background.default"}>
-          {users.username !== state.user.username && (
-            <Button onClick={handleClick}>
+          {users.username !== state.user.username && show && (
+            <Button onClick={handleClick}  timeout={5000}  >
               {followed ? "Unfollow" : "Follow"}
               {followed ? <Remove /> : <Add />}
             </Button>
